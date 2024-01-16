@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="fragments/head::headfragment"></head>
+<body>
+<nav th:replace="fragments/navbar::navbarfragment"></nav>
+<div class="container py-3">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <a class="link" th:href="@{/movies}">← Вернуться к списку фильмов</a>
+      <br/>
+      <div class="card shadow-lg mt-3">
+        <div class="card-header">
+          <span class="badge alert-success mb-3" th:text="${movie.getGenre()}"></span><br>
+          <h2 class="text-left text-name" th:text="${movie.getMovieName()}"></h2>
+          <h5 class="text-left text-secondary" th:text="${movie.getMovieDirector()}"></h5>
+          <h6 class="text-left" th:text="${movie.getMovieYear()}"></h6>
+        </div>
+        <div class="card-body">
+          <div class="row col-md-10">
+            <h5>Добавленные информации фильмов</h5>
+          </div>
+          <table class="table table-sm table-striped" id="detailsTable">
+            <thead>
+            <tr>
+              <th>Формат</th>
+              <th>Издательство</th>
+              <th>Страна</th>
+              <th>Продолжительность, мин</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="align-middle" th:each="movieDetail: ${movieDetails}">
+              <td th:text="${movieDetail.getFormat().getName()}" />
+              <td th:text="${movieDetail.getPublisher().getName()}" />
+              <td th:text="${movieDetail.getCountry().getName()}" />
+              <td th:text="${movieDetail.getDuration()}" />
+              <td style="padding-left: 50px;">
+                <a sec:authorize="!hasAuthority('READONLY')" th:href="@{/movieDetails/deleteDetail(movieId=${movie.movieId}, detailId=${movieDetail.detailId})}" class="btn btn-secondary ml-2" title="Удалить запись"><i class="bi bi-x-lg text-light"></i></a>
+              </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(movieDetails)}">
+              <td class="text-center p-4" colspan="5">Пока не введено данных</td>
+            </tr>
+            </tbody>
+          </table>
+          <script type="text/javascript">function addDetail(isOpen){$('div.addDetail').slideToggle("fast",function(){});}</script>
+          <div sec:authorize="!hasAuthority('READONLY')" class="addDetail">
+            <a href="javascript:addDetail(true)" class="btn btn-primary"><i class="bi bi-plus-lg text-light"></i>&nbsp;Добавить информацию</a>
+          </div>
+            <div sec:authorize="!hasAuthority('READONLY')" class="card-body bg-light mt-1 addDetail" style="display: none;">
+              <div class="row col-md-10">
+                <h5>Добавить информацию</h5>
+              </div>
+              <form th:action="@{/movieDetails/addDetail}" th:object="${movieDetails}" method="POST">
+                <div class="form-floating mb-3">
+                  <select class="form-select mb-3" aria-label="Default select" id="movieFormatId" name="movieFormatId">
+                    <option th:each="format : ${formats}" th:value="${format.id}" th:text="${format.name}"></option>
+                  </select>
+                  <label for="movieFormatId">Формат</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <select class="form-select mb-3" aria-label="Default select" id="moviePudlisherId" name="moviePublisherId">
+                    <option th:each="publisher : ${publishers}" th:value="${publisher.id}" th:text="${publisher.name}"></option>
+                  </select>
+                  <label for="moviePudlisherId">Издательство</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <select class="form-select mb-3" aria-label="Default select" id="movieCountryId" name="movieCountryId">
+                    <option th:each="country : ${countrys}" th:value="${country.id}" th:text="${country.name}"></option>
+                  </select>
+                  <label for="movieCountryId">Страна</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input min="0" value="0" type="number" class="form-control" name="duration" id="duration" placeholder="Продолжительность, мин">
+                  <label for="duration">Продолжительность, мин</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg">Добавить</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="link" href="javascript:addDetail(false)">Отмена</a></span>
+                <input type="hidden" th:field="${movie.movieId}"/>
+              </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="fragments/head::headfragment"></head>
+<body>
+<nav th:replace="fragments/navbar::navbarfragment"></nav>
+<div class="container py-3">
+    <div class="row col-md-10">
+        <h2>Список пользователей</h2>
+    </div>
+    <br/>
+    <table class="table table-sm table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя пользователя</th>
+            <th>Роль</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="align-middle" th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.getRole()}"></td>
+            <td style="padding-left: 50px;">
+                <a th:href="@{/updateUser(userId=${user.id})}" class="btn btn-dark" title="Изменить запись"><i class="bi bi-pen text-light"></i> Изменить роль</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

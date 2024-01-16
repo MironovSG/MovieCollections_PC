@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="fragments/head::headfragment"></head>
+<body>
+<nav th:replace="fragments/navbar::navbarfragment"></nav>
+<br/><br/>
+<div class="container">
+  <div class="row gy-10">
+    <div class="col">
+      <div class="p-10">
+        <img th:src="@{/img/logo4.png}" style="width: 10%;"/>
+      </div>
+    </div>
+    <div class="container py-3">
+      <div class="row col-md-10">
+        <h2>Разделы</h2>
+      </div>
+      <br/>
+      <a th:href="@{/infoes/genres}" class="btn btn-primary">Жанры</a>
+      <a th:href="@{/infoes/formats}" class="btn btn-primary">Форматы</a>
+      <a th:href="@{/infoes/publishers}" class="btn btn-primary">Издательства</a>
+      <a th:href="@{/infoes/countrys}" class="btn btn-primary">Страны</a>
+    </div>
+  </div>
+</body>
+</html>

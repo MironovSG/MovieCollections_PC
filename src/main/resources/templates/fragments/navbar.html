@@ -1,0 +1,52 @@
+<nav th:fragment="navbarfragment" class="navbar nav-pills navbar-expand-xl navbar-dark bg-dark" style="background-color: #000000 !important;" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <div class="container-fluid">
+    <a sec:authorize="isAnonymous()" class="navbar-brand" th:href="@{/index}"><img th:src="@{/img/logo.png}" style="width: 140px;"/></a>
+    <a sec:authorize="isAuthenticated()" class="navbar-brand" th:href="@{/movies}"><img th:src="@{/img/logo.png}" style="width: 120px;"/></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div sec:authorize="isAuthenticated()" class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-5">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" th:href="@{/movies}">Фильмы</a>
+        </li>
+        <li sec:authorize="hasAnyAuthority('USER', 'ADMIN')" class="nav-item">
+          <a class="nav-link" aria-current="page" th:href="@{/statistic}">Статистика</a>
+        </li>
+        <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+          <a class="nav-link" aria-current="page" th:href="@{/infoes}">Информация</a>
+        </li>
+        <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+          <a class="nav-link" aria-current="page" th:href="@{/users}">Пользователи</a>
+        </li>
+        <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+          <a class="nav-link" aria-current="page" th:href="@{/roles}">Роли</a>
+        </li>
+        <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+          <a class="nav-link" aria-current="page" th:href="@{/logs}">Логи</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" th:href="@{/about}">О приложении</a>
+        </li>
+      </ul>
+    </div>
+    <div sec:authorize="isAnonymous()" class="collapse navbar-collapse justify-content-end" id="loginSupportedContentNotAuth">
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li th:if="${currentUrl != '/login'}" class="nav-item">
+          <a class="nav-link" aria-current="page" th:href="@{/login}">Войти</a>
+        </li>
+        <li th:if="${currentUrl != '/register'}">
+          <a class="nav-link" aria-current="page" th:href="@{/register}">Зарегистрироваться</a>
+        </li>
+      </ul>
+    </div>
+    <div sec:authorize="isAuthenticated()" class="collapse navbar-collapse justify-content-end" id="loginSupportedContentAuth">
+      <i class="bi bi-person-fill text-light"></i>&nbsp;<div th:text="${#authentication.name}" class="text-light"></div>&nbsp;<div class="text-warning" sec:authentication="principal.authorities"></div>
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li>
+          <a class="nav-link" aria-current="page" th:href="@{/logout}">Выйти</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

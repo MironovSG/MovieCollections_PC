@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="fragments/head::headfragment"></head>
+<body>
+<nav th:replace="fragments/navbar::navbarfragment"></nav>
+<div class="container py-3">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card shadow-lg">
+        <div class="card-header">
+          <h2 class="text-center">[(${pageTitle})]</h2>
+        </div>
+        <div class="card-body">
+          <form th:action="@{/infoes/countrys/saveCountry}" th:object="${country}" method="POST">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" name="countryName" id="countryName" placeholder="Название страны" th:field="*{name}">
+              <label for="countryName">Название страны</label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">Сохранить</button>
+            <input type="hidden" th:field="*{id}"/>
+          </form>
+          <hr/>
+          <a class="link" th:href="@{/infoes/countrys}">Вернуться к списку</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

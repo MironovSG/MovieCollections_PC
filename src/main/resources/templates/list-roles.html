@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="fragments/head::headfragment"></head>
+<body>
+<nav th:replace="fragments/navbar::navbarfragment"></nav>
+<div class="container py-3">
+  <div class="row col-md-10">
+    <h2>Роли пользователей</h2>
+  </div>
+  <br/>
+  <table class="table table-sm table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Имя роли</th>
+      <th>Описание роли</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="align-middle" th:each="role : ${roles}">
+      <td th:text="${role.id}"></td>
+      <td th:text="${role.name}"></td>
+      <td th:text="${role.caption}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

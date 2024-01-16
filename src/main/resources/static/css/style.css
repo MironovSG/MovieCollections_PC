@@ -1,0 +1,29 @@
+body {
+    background-color: #c2c2c2 !important;
+}
+
+.text-name{
+    color: #000000 !important;
+}
+
+.btn-primary {
+    background-color: #1335e5 !important;
+    border-color: #1b3394 !important;
+}
+
+.btn-primary:hover {
+    background-color: #1b3394 !important;
+}
+
+a.link, a.link:visited {
+    color: #102b96;
+}
+
+a.link:hover {
+    color: #334dd7 !important;
+}
+
+td {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="fragments/head::headfragment"></head>
+<body>
+<nav th:replace="fragments/navbar::navbarfragment"></nav>
+<div class="container py-3">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card shadow-lg">
+                <div class="card-header">
+                    <h2 class="text-center">[(${pageTitle})]</h2>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/saveMovie}" th:object="${movie}" method="POST">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="movieName" id="movieName" placeholder="Название фильма" th:field="*{movieName}">
+                            <label for="movieName">Название фильма</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select mb-3" aria-label="Default select" id="movieYear" name="movieYear" th:field="*{movieYear}">
+                                <option th:each="i : ${#numbers.sequence( curyear, 1950, -1)}" th:value="${i}" th:text="${i}"></option>
+                            </select>
+                            <label for="movieYear">Год выхода</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="movieDirector" id="movieDirector" placeholder="Режиссер" th:field="*{movieDirector}">
+                            <label for="movieDirector">Режиссер</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select mb-3" aria-label="Default select" id="movieGenreId" name="movieGenreId">
+                                <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}" th:selected="${genre.id}==${movieGenre}"></option>
+                            </select>
+                            <label for="movieGenreId">Жанр фильма</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg">Сохранить</button>
+                        <input type="hidden" th:field="*{movieId}"/>
+                        <input type="hidden" th:field="*{createdBy}"/>
+                        <input type="hidden" name="details" th:value="${details}"/>
+                    </form>
+                    <hr/>
+                    <a class="link" th:href="@{/movies}">Вернуться к списку</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

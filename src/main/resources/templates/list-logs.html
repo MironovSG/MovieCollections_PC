@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="fragments/head::headfragment"></head>
+<body>
+<nav th:replace="fragments/navbar::navbarfragment"></nav>
+<div class="container py-3">
+  <div class="row col-md-10">
+    <h2>Логи действий пользователей</h2>
+  </div>
+  <br/>
+  <table class="table table-sm table-striped">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Пользователь</th>
+      <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="align-middle" th:each="log : ${logs}">
+      <td th:text="${#temporals.format(log.timestamp, 'dd.MM.yyyy, HH:mm:ss')}"></td>
+      <td th:text="${userrep.findById(log.getUserId()).get().getUsername()} + ' (' + ${log.getUserId()} + ')'"></td>
+      <td th:text="${log.getAction()}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
