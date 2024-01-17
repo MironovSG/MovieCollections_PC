@@ -11,12 +11,10 @@ import ru.mironov.moviecollections.repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
 @Service
 public class ActionLogService {
     final private ActionLogRepository actionLogRepository;
     final private UserRepository userRepository;
-
     @Autowired
     public ActionLogService(ActionLogRepository actionLogRepository, UserRepository userRepository){
         this.actionLogRepository = actionLogRepository;
@@ -30,12 +28,10 @@ public class ActionLogService {
         actionLog.setTimestamp(LocalDateTime.now());
         actionLogRepository.save(actionLog);
     }
-
     public void logging(String action){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
         User user = userRepository.findByUsername(currentUserName);
-
         this.logging(user.getId(), action);
     }
 }

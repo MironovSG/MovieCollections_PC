@@ -9,15 +9,12 @@ import ru.mironov.moviecollections.entity.User;
 import ru.mironov.moviecollections.repository.UserRepository;
 
 import java.util.stream.Collectors;
-
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
-
     public CustomUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);

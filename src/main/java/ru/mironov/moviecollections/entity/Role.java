@@ -8,7 +8,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,13 +18,10 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(nullable = false, unique = true)
     private String name;
-
     @Column()
     private String caption;
-
     @ManyToMany(mappedBy = "roles")
     private List<User> users = new ArrayList<>();
 }

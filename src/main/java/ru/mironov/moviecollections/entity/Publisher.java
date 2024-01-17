@@ -16,13 +16,10 @@ public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(nullable = false, unique = true)
     private String name;
-
     @OneToOne()
     private MovieDetails movieDetails;
-
     @Override
     public String toString(){ return this.getName(); }
 }

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import ru.mironov.moviecollections.entity.Movie;
 
 import java.util.List;
-
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
     List<Movie> findByCreatedBy(Long createdBy);

@@ -24,7 +24,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 @Controller
 public class SecurityController {
     @Autowired
@@ -34,39 +33,33 @@ public class SecurityController {
     private UserService userService;
     private ActionLogService actionLogService;
     private MoviesStatistic moviesStatistic;
-
     public SecurityController(UserService userService, ActionLogService actionLogService, MoviesStatistic moviesStatistic) {
         this.userService = userService;
         this.actionLogService = actionLogService;
         this.moviesStatistic = moviesStatistic;
     }
-
     @GetMapping("/index")
     public String home(Model model, HttpServletRequest request) {
         model.addAttribute("pageTitle", "Главная");
         model.addAttribute("currentUrl", request.getRequestURI());
         return "index";
     }
-
     @GetMapping("/login")
     public String login(Model model, HttpServletRequest request) {
         model.addAttribute("pageTitle", "Войти в MovieCollections");
         model.addAttribute("currentUrl", request.getRequestURI());
         return "login";
     }
-
     @GetMapping("/login/success")
     public String loginSuc(){
         actionLogService.logging("Успешная авторизация");
         return "redirect:/movies";
     }
-
     @GetMapping("/logout")
     public String logoutSuc(){
         actionLogService.logging("Завершение сессии");
         return "redirect:/logout/success";
     }
-
     @GetMapping("/register")
     public String showRegistrationForm(Model model, HttpServletRequest request){
         UserDto user = new UserDto();
@@ -75,28 +68,23 @@ public class SecurityController {
         model.addAttribute("currentUrl", request.getRequestURI());
         return "register";
     }
-
     @PostMapping("/register/save")
     public String registration(@Valid @ModelAttribute("user") UserDto userDto,
                                BindingResult result,
                                Model model){
         User existingUser = userService.findUserByUsername(userDto.getUsername());
-
         if(existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()){
             result.rejectValue("username", null,
                     "Уже зарегистрирована учётная запись с указанным Именем пользователя.");
         }
-
         if(result.hasErrors()){
             model.addAttribute("user", userDto);
             return "/register";
         }
-
         userService.saveUser(userDto);
         actionLogService.logging(userService.findUserByUsername(userDto.getUsername()).getId(), "Регистрация");
         return "redirect:/register?success";
     }
-
     @GetMapping("/users")
     public String users(Model model, HttpServletRequest request){
         List<UserDto> users = userService.findAllUsers();
@@ -104,7 +92,6 @@ public class SecurityController {
         model.addAttribute("pageTitle", "Список пользователей");
         return "list-users";
     }
-
     @GetMapping("/updateUser")
     public ModelAndView updateUser(@RequestParam Long userId) {
         ModelAndView mav = new ModelAndView("update-user-form");
@@ -113,15 +100,12 @@ public class SecurityController {
         if(optionalUser.isPresent()){
             user = optionalUser.get();
         }
-
         Long roleId = user.getRoles().get(0).getId();
-
         mav.addObject("user", user);
         mav.addObject("userRole", roleId);
         mav.addObject("roles", roleRepository.findAll());
         return mav;
     }
-
     @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute User user, @RequestParam("userRole") Long userRole) {
         userService.addRoleToUser(user.getId(), userRole);
@@ -129,7 +113,6 @@ public class SecurityController {
                 "\" (ID: " + user.getId() + ") на " + roleRepository.findById(userRole).get().getName());
         return "redirect:/users";
     }
-
     @GetMapping("/roles")
     public ModelAndView roles(Model model){
         ModelAndView mav = new ModelAndView("list-roles");
@@ -137,14 +120,12 @@ public class SecurityController {
         model.addAttribute("pageTitle", "Фильмы");
         return mav;
     }
-
     @GetMapping("/about")
     public String about(Model model, HttpServletRequest request) {
         model.addAttribute("pageTitle", "О приложении");
         model.addAttribute("currentUrl", request.getRequestURI());
         return "about";
     }
-
     @GetMapping("/statistic")
     public String statistic(Model model,
                             HttpServletRequest request,
@@ -154,11 +135,9 @@ public class SecurityController {
             String statistic = (String) inputFlashMap.get("statistic");
             model.addAttribute("statistic", statistic);
         }
-
         model.addAttribute("pageTitle", "Статистика");
         return "statistic-calculate";
     }
-
     @PostMapping("/statistic/calculate")
     public String statisticCalculate(HttpServletRequest request,
                                      @RequestParam("statOption") String statOption,

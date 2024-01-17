@@ -15,7 +15,6 @@ import ru.mironov.moviecollections.repository.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-
 @Slf4j
 @Controller
 public class ActionLogController {

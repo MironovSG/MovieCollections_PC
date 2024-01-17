@@ -11,7 +11,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -23,19 +22,14 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="movieId")
     private long movieId;
-
     @Column(name="movieName")
     private String movieName;
-
     @Column(name="movieYear")
     private int movieYear;
-
     @Column(name="movieDirector")
     private String movieDirector;
-
     @Column(name="createdBy")
     private Long createdBy;
-
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "movies_genres",
@@ -43,7 +37,6 @@ public class Movie {
             inverseJoinColumns = { @JoinColumn(name = "genre_id", referencedColumnName = "id") }
     )
     private List<Genre> genres = new ArrayList<>();
-
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="movie_movie_id")
     private List<MovieDetails> details = new ArrayList<>();
@@ -51,7 +44,6 @@ public class Movie {
         Optional<Genre> genreO = genreRepository.findById(genreId);
         if (genreO.isPresent()) {
             Genre genre = genreO.get();
-
             this.getGenres().clear();
             this.getGenres().add(genre);
             movieRepository.save(this);
@@ -60,10 +52,8 @@ public class Movie {
     public String getGenre(){
         String ret = "";
         List<Genre> genres = this.getGenres();
-
         if(genres.size() == 0) ret = "";
             else ret = this.getGenres().get(0).getName();
-
         return ret;
     }
 }
