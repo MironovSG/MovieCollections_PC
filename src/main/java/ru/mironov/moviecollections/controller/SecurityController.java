@@ -19,8 +19,8 @@ import ru.mironov.moviecollections.service.ActionLogService;
 import ru.mironov.moviecollections.service.MoviesStatistic;
 import ru.mironov.moviecollections.service.UserService;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;

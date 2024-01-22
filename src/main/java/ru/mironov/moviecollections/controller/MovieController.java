@@ -21,7 +21,7 @@ import ru.mironov.moviecollections.repository.UserRepository;
 import ru.mironov.moviecollections.service.ActionLogService;
 import ru.mironov.moviecollections.service.UserService;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.time.Year;
 import java.util.List;
 import java.util.Optional;

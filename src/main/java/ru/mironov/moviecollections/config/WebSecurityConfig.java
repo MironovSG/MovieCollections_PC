@@ -15,16 +15,16 @@ public class WebSecurityConfig {
     public static PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeHttpRequests()
-                .antMatchers("/register/**").permitAll()
-                .antMatchers("/index").permitAll()
-                .antMatchers("/img/**").permitAll()
-                .antMatchers("/css/**").permitAll()
-                .antMatchers("/users", "/updateUser",
+        http.csrf(csrf -> csrf.disable())
+                .authorizeRequests()
+                .requestMatchers("/register/**").permitAll()
+                .requestMatchers("/index").permitAll()
+                .requestMatchers("/img/**").permitAll()
+                .requestMatchers("/css/**").permitAll()
+                .requestMatchers("/users", "/updateUser",
                         "/saveUser", "/roles", "/infoes",
                         "/infoes/**", "/logs").hasAuthority("ADMIN")
-                .antMatchers("/addMovieForm", "/saveMovie", "/updateMovie", "/deleteMovie",
+                .requestMatchers("/addMovieForm", "/saveMovie", "/updateMovie", "/deleteMovie",
                         "/movieDetails/addDetail", "/movieDetails/deleteDetail").hasAnyAuthority("ADMIN", "USER")
                 .anyRequest().authenticated()
                 .and()

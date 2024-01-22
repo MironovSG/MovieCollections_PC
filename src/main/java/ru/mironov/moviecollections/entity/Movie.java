@@ -7,7 +7,7 @@ import lombok.Setter;
 import ru.mironov.moviecollections.repository.MovieRepository;
 import ru.mironov.moviecollections.repository.GenreRepository;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

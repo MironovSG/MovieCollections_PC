@@ -14,7 +14,7 @@ import ru.mironov.moviecollections.entity.*;
 import ru.mironov.moviecollections.repository.*;
 import ru.mironov.moviecollections.service.*;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;

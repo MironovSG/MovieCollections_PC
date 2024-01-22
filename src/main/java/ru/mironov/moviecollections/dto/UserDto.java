@@ -2,8 +2,8 @@ package ru.mironov.moviecollections.dto;
 
 import ru.mironov.moviecollections.entity.*;
 import ru.mironov.moviecollections.repository.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

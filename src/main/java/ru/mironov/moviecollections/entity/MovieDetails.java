@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 @Getter
@@ -27,5 +27,6 @@ public class MovieDetails {
     @OneToOne(cascade = CascadeType.PERSIST)
     private Country country;
     @ManyToOne(fetch = FetchType.LAZY)
-    private Movie movie;
+    private  Movie movie;
+
 }

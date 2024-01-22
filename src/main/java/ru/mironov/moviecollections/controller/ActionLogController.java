@@ -13,7 +13,7 @@ import ru.mironov.moviecollections.entity.ActionLog;
 import ru.mironov.moviecollections.repository.ActionLogRepository;
 import ru.mironov.moviecollections.repository.UserRepository;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 @Slf4j
 @Controller
